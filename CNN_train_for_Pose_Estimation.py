@@ -43,7 +43,7 @@ img_resize_rate = 0.5
 img_height = math.floor(img_resize_rate * 480)
 img_width = math.floor(img_resize_rate * 640)
 img_channel = 3
-net_layer = [24, 36, 48, 64, 64, fcn_out *32, fcn_out *16, fcn_out *4, fcn_out]
+net_layer = [24, 36, 48, 64, 64, fcn_out *100, fcn_out *50, fcn_out *10, fcn_out]
 model_activation = 'elu'
 model = Sequential() ### x: x/127.5-1.0
 ### Normalize input 
@@ -52,7 +52,7 @@ model.add(Lambda(lambda x: x, input_shape=(img_height,img_width,img_channel)))
 model.add(Conv2D(net_layer[0], (5, 5), activation=model_activation, strides=(2, 2)))
 model.add(Conv2D(net_layer[1], (5, 5), activation=model_activation, strides=(2, 2)))
 model.add(Conv2D(net_layer[2], (5, 5), activation=model_activation, strides=(2, 2)))
-model.add(Conv2D(net_layer[3], (3, 3), activation=model_activation))
+model.add(Conv2D(net_layer[3], (3, 3), activation=model_activation, strides=(2, 2)))
 model.add(Conv2D(net_layer[4], (3, 3), activation=model_activation))
 model.add(Dropout(0.5))
 model.add(Flatten())
